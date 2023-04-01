@@ -10,26 +10,22 @@ describe('Process Runtime Tests', () => {
   }
 
   it('Convert audio file', async () => {
-
     const step = {
       stepName: 'ConvertAudio',
       name: 'scaleAudio',
       type: StepType.Task,
-      arguments: [ ],
+      arguments: [],
     }
 
     const task = await TaskBase.getInstance(step, taskConfig)
     const stepContext = {
       input: new Map<string, unknown>([
-        [ "input", join(__dirname, 'example.ogg')],
-        [ "quality", "8"],
-        [ "output", join(__dirname, 'example.mp3')],
-        [ "ffmpegPath", 'C:\\Program Files (x86)\\ffmpeg\\bin\\ffmpeg.exe']
+        ['input', join(__dirname, 'example.ogg')],
+        ['quality', 'Low'],
+        ['output', join(__dirname, 'example.mp3')],
       ]),
       result: new Map<string, unknown>(),
     }
     //await task.run(stepContext)
-
   })
-
 })
