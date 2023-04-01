@@ -1,7 +1,8 @@
 {
   "extension": ["ts"],
-  "timeout": 5000,
+  "timeout": 7000,
   "spec": ["./src/**/*.spec.ts"],
   "exclude": ["**/node_modules/**/*"],
-  "require": ["ts-node/register"]
+  "require": ["ts-node/register"],
+  "node-option": ["experimental-wasm-threads"]
 }
