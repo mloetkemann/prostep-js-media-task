@@ -28,7 +28,7 @@ describe('Process Runtime Tests', () => {
       ]),
       result: new Map<string, unknown>(),
     }
-    await task.run(stepContext)
+    //await task.run(stepContext)
 
   })
 

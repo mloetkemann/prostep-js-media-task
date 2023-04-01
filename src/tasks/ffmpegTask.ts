@@ -15,6 +15,7 @@ export default class MediaTaskBase extends TaskBase {
         if(this.inputFile && this.outputFile) {
             this.logger.verbose("Fetch file");
             ffmpeg.FS('writeFile', this.inputFile, await fetchFile(this.inputFile ));
+            //ffmpeg.FS('readFile', this.inputFile)
             
             this.logger.verbose("Run ffmpeg");
             
