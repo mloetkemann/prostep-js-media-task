@@ -1948,10 +1948,10 @@ process@^0.11.10:
   resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
   integrity sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==
 
-prostep-js@^0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/prostep-js/-/prostep-js-0.0.10.tgz#3121a2e1256e47588aa4902b3dd6800e23fddf67"
-  integrity sha512-czVdZjOkR82bok9EeI3y4+QyVDZkFtuvzxni9dk/knj49m/Fj5v1PYPSVdke88ZVoVxrIyRdvhybBfiViNRksw==
+prostep-js@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/prostep-js/-/prostep-js-1.1.0.tgz#f2a8ffe1cf1c1af31083501922dd4fd32dee677d"
+  integrity sha512-yRUNErOl7izsTUq1m0+f2mTL3XqKdjJrEtG75dQpvH5nUhS2thBmo2BX7ye9Lc6ty2+pJQ9Qsd7+QFG1jqHzkQ==
   dependencies:
     npmlog "^7.0.1"
 

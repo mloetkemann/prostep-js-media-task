@@ -23,12 +23,11 @@ describe('Process Runtime Tests', () => {
       input: new Map<string, unknown>([
         [ "input", join(__dirname, 'example.ogg')],
         [ "quality", "8"],
-        [ "output", join(__dirname, 'example.mp3')],
-        [ "ffmpegPath", 'C:\\Program Files (x86)\\ffmpeg\\bin\\ffmpeg.exe']
+        [ "output", join(__dirname, 'example.mp3')]
       ]),
       result: new Map<string, unknown>(),
     }
-    //await task.run(stepContext)
+    await task.run(stepContext)
 
   })
 

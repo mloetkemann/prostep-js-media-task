@@ -1,13 +1,29 @@
-import { ExecutableRuntimeContext, TaskBase } from "prostep-js";
+import { ExecutableRuntimeContext, InputMetadata, TaskBase } from "prostep-js";
 import { writeFile } from 'fs/promises';
 import { FFmpeg, createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
 
 const ffmpeg = createFFmpeg({ log: true});
 
+function parseToString(value: unknown) : string | undefined {
+    if(typeof value === 'string') {
+        return value;
+    }
+    return
+}
+
 export default class MediaTaskBase extends TaskBase {
     private inputFile: string | undefined
     private outputFile: string | undefined
     
+    getInputMetadata(): InputMetadata {
+        return {
+          fields: [
+            { name: 'input', type: 'string' },
+            { name: 'output', type: 'string' },
+            { name: 'quality', type: 'string' },
+          ],
+        }
+      }
 
     private async runFFMPEGWasm(command: string[]) {
         this.logger.verbose("Prepare ffmpeg");
@@ -25,9 +41,9 @@ export default class MediaTaskBase extends TaskBase {
         
     }
   
-    async run(context: ExecutableRuntimeContext) {
-        this.inputFile = context.input.get("input");
-        this.outputFile = context.input.get("output");
+    async executeTask(context: ExecutableRuntimeContext) {
+        this.inputFile = parseToString(context.input.get("input"));
+        this.outputFile = parseToString(context.input.get("output"));
         const ffmpegArguments = this.mapArguments(context);
         await this.runFFMPEGWasm(ffmpegArguments );
  
