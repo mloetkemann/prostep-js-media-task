@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/mloetkemann/prostep-js-media-task/compare/v1.0.0...v1.1.0) (2023-04-01)
+
+
+### Features
+
+* add input validation ([1f4ac48](https://github.com/mloetkemann/prostep-js-media-task/commit/1f4ac48e81d9e9c6e9b99aea00700c95542f4052))
+* add quality parameter ([520d867](https://github.com/mloetkemann/prostep-js-media-task/commit/520d8676fa56a57514ecae24e7c84ec3b789cb7b))
+
 # 1.0.0 (2023-04-01)
 
 
