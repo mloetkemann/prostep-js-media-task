@@ -103,4 +103,4 @@ dist
 # TernJS port file
 .tern-port
 
-tests/example.mp3
+src/tests/example.mp3

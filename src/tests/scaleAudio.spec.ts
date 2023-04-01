@@ -1,5 +1,5 @@
 import { assert } from 'chai'
-import ScaleAudioTask from '../src/tasks/scaleAudio'
+import ScaleAudioTask from '../tasks/scaleAudio'
 import { StepType, TaskBase } from 'prostep-js'
 import { join } from 'path'
 
