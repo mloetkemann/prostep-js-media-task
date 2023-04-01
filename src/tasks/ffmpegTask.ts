@@ -1,45 +1,34 @@
 import { ExecutableRuntimeContext, TaskBase } from "prostep-js";
-import { spawn } from 'child_process';
+import { writeFile } from 'fs/promises';
+import { FFmpeg, createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
+
+const ffmpeg = createFFmpeg({ log: true});
 
 export default class MediaTaskBase extends TaskBase {
+    private inputFile: string | undefined
+    private outputFile: string | undefined
+    
 
-
-    runFFMPEG(path:string, command: string[]) : Promise<void>{
-        const promise = new Promise<void>( (resolve, reject) => {
-            this.logger.verbose("Start ffmpeg");
-            const ffmpeg = spawn(path, command);
-
-            ffmpeg.stderr.setEncoding("utf8")
-            ffmpeg.stderr.on("data", (data) => {
-                this.logger.verbose(`stderr: ${data}`);
-            });
-
-            ffmpeg.stdout.on('data', (data) => {
-                this.logger.verbose(`stdout: ${data}`);
-            });
+    private async runFFMPEGWasm(command: string[]) {
+        this.logger.verbose("Prepare ffmpeg");
+        await ffmpeg.load();
+        if(this.inputFile && this.outputFile) {
+            this.logger.verbose("Fetch file");
+            ffmpeg.FS('writeFile', this.inputFile, await fetchFile(this.inputFile ));
+            
+            this.logger.verbose("Run ffmpeg");
+            
+            await ffmpeg.run(...command);
+            ffmpeg.exit();
+        }
         
-            ffmpeg.on("exit", (code,signal) => {
-                this.logger.verbose("FFMPEG Exit");
-                if(signal)
-                    code = parseInt(signal);
-                if(code != 0) {
-                    
-                    this.logger.error(`ffmpeg Error ${code}`);
-                    reject();
-                }
-                else {
-                    this.logger.verbose("FFMPEG Done");
-                    resolve();
-                }
-            });
-        });
-        return promise;
     }
   
     async run(context: ExecutableRuntimeContext) {
-       
+        this.inputFile = context.input.get("input");
+        this.outputFile = context.input.get("output");
         const ffmpegArguments = this.mapArguments(context);
-        await this.runFFMPEG(context.input.get("ffmpegPath").toString(), ffmpegArguments );
+        await this.runFFMPEGWasm(ffmpegArguments );
  
     }
 
@@ -56,13 +45,13 @@ export default class MediaTaskBase extends TaskBase {
         return [
             '-y', 
             '-i',
-            `${input.get("input")}`
+            `file:${input.get("input")}`
         ]
     }
     
     private mapOutputArguments(input: Map<string, unknown>) : string[]{
         return [
-            `${input.get("output")}`
+            `file:${input.get("output")}`
         ]
     }
     
