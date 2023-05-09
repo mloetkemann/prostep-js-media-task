@@ -39,8 +39,8 @@
     ]
   },
   "dependencies": {
-    "@ffmpeg/core": "^0.11.0",
-    "@ffmpeg/ffmpeg": "^0.11.6",
+    "@ffmpeg.wasm/core-mt": "^0.12.0",
+    "@ffmpeg.wasm/main": "^0.12.0",
     "prostep-js": "^1.1.1"
   },
   "release": {
