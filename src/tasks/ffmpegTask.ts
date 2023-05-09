@@ -1,6 +1,6 @@
 import { ExecutableRuntimeContext, InputMetadata, TaskBase } from 'prostep-js'
 import { writeFile } from 'fs/promises'
-import { FFmpeg, createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg'
+import { FFmpeg, createFFmpeg, fetchFile } from '@ffmpeg.wasm/main'
 
 const ffmpeg = createFFmpeg({ log: true })
 
@@ -37,7 +37,7 @@ export default class MediaTaskBase extends TaskBase {
     await this.runFFMPEGWasm(ffmpegArguments)
   }
 
-  private mapArguments(context: ExecutableRuntimeContext): string[] {
+  protected mapArguments(context: ExecutableRuntimeContext): string[] {
     let args = this.mapInputArguments(context.input)
     args = args.concat(this.mapConvertArguments(context.input))
     args = args.concat(this.mapOutputArguments(context.input))
@@ -46,11 +46,11 @@ export default class MediaTaskBase extends TaskBase {
     return args
   }
 
-  private mapInputArguments(input: Map<string, unknown>): string[] {
+  protected mapInputArguments(input: Map<string, unknown>): string[] {
     return ['-y', '-i', `file:${input.get('input')}`]
   }
 
-  private mapOutputArguments(input: Map<string, unknown>): string[] {
+  protected mapOutputArguments(input: Map<string, unknown>): string[] {
     return [`file:${input.get('output')}`]
   }
 
