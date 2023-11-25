@@ -1,3 +1,16 @@
+# [1.2.0](https://github.com/mloetkemann/prostep-js-media-task/compare/v1.1.0...v1.2.0) (2023-11-25)
+
+
+### Bug Fixes
+
+* remove loudnorm test ([05a2d83](https://github.com/mloetkemann/prostep-js-media-task/commit/05a2d8336711479b8e93541ef2fb92e7d246a81c))
+
+
+### Features
+
+* add metadata task ([b218845](https://github.com/mloetkemann/prostep-js-media-task/commit/b2188457a3fa455ff296b1f92e0de401ae5fc5dc))
+* add metadata task ([ef9a8f6](https://github.com/mloetkemann/prostep-js-media-task/commit/ef9a8f633c1368f2e19aeb300767ce9e2bd57b08))
+
 # [1.1.0](https://github.com/mloetkemann/prostep-js-media-task/compare/v1.0.0...v1.1.0) (2023-04-01)
 
 
