@@ -5,14 +5,14 @@ import { join } from 'path'
 
 describe('Process Runtime Tests', () => {
   const taskConfig = {
-    name: 'scaleAudio',
-    path: './src/tasks/scaleAudio',
+    name: 'tag',
+    path: './src/tasks/tag',
   }
 
-  it('Convert audio file', async () => {
+  it('Mp3 Tag file', async () => {
     const step = {
-      stepName: 'ConvertAudio',
-      name: 'scaleAudio',
+      stepName: 'MP3Tag',
+      name: 'tag',
       type: 'Task',
       arguments: [],
     }
@@ -20,9 +20,12 @@ describe('Process Runtime Tests', () => {
     const task = await TaskBase.getInstance(step, taskConfig)
     const stepContext = {
       input: new Map<string, unknown>([
-        ['input', join(__dirname, 'example.ogg')],
-        ['quality', 'Low'],
-        ['output', join(__dirname, 'example.mp3')],
+        ['input', join(__dirname, 'tagExample.mp3')],
+        ['title', 'TEST TEST TEST'],
+        ['album', 'TEST ALBUM'],
+        ['album_artist', 'TEST ALBUM ARTIST'],
+        ['artist', 'TEST ARTIST'],
+        ['output', join(__dirname, 'tagExampleResult.mp3')],
       ]),
       result: new Map<string, unknown>(),
     }
