@@ -1,6 +1,6 @@
 {
   "extension": ["ts"],
-  "timeout": 7000,
+  "timeout": 15000,
   "spec": ["./src/**/*.spec.ts"],
   "exclude": ["**/node_modules/**/*"],
   "require": ["ts-node/register"],

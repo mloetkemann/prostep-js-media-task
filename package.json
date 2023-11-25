@@ -39,9 +39,10 @@
     ]
   },
   "dependencies": {
-    "@ffmpeg/core": "^0.11.0",
-    "@ffmpeg/ffmpeg": "^0.11.6",
-    "prostep-js": "^1.1.1"
+
+    "alpha8-lib": "^1.4.3",
+    "execa": "^8.0.1",
+    "prostep-js": "^1.5.2"
   },
   "release": {
     "branches": [

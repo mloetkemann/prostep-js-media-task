@@ -3,21 +3,22 @@ import MediaTaskBase from './ffmpegTask'
 import { parseToString } from 'alpha8-lib'
 import { ExecutableRuntimeContext } from 'prostep-js/dist/lib/base'
 
-export default class ScaleAudioTask extends MediaTaskBase {
+export default class Mp3TagTask extends MediaTaskBase {
   getInputMetadata(): InputMetadata {
     return {
       fields: [
         { name: 'input', type: 'string' },
         { name: 'output', type: 'string' },
         {
-          name: 'quality',
+          name: 'artist',
           type: 'string',
-          options: new Map<string, string>([
-            ['Low', '8'],
-            ['Medium', '6'],
-            ['High', '3'],
-          ]),
         },
+        { name: 'title', type: 'string' },
+        { name: 'album', type: 'string' },
+        { name: 'genre', type: 'string' },
+        { name: 'track', type: 'string' },
+        { name: 'date', type: 'string' },
+        { name: 'album_artist', type: 'string' },
       ],
     }
   }
@@ -39,20 +40,23 @@ export default class ScaleAudioTask extends MediaTaskBase {
     return args
   }
 
-  private getNewBitrate(input: unknown): string {
-    if (typeof input === 'string') {
-      const value = this.mapInputOption('quality', input)
-      if (typeof value === 'string') return value
-    }
-    throw Error('Error: bitrate input wrong')
+  protected mapConvertArguments(input: Map<string, unknown>): string[] {
+    let result = this.addMetaField(input, 'title')
+    result = result.concat(this.addMetaField(input, 'artist'))
+    result = result.concat(this.addMetaField(input, 'album'))
+    result = result.concat(this.addMetaField(input, 'album_artist'))
+    result = result.concat(this.addMetaField(input, 'genre'))
+    result = result.concat(this.addMetaField(input, 'track'))
+    result = result.concat(this.addMetaField(input, 'date'))
+
+    return result
   }
 
-  protected mapConvertArguments(input: Map<string, unknown>): string[] {
-    return [
-      `-codec:a`,
-      `libmp3lame`,
-      `-q:a`,
-      `${this.getNewBitrate(input.get('quality'))}`,
-    ]
+  private addMetaField(input: Map<string, unknown>, tag: string): string[] {
+    const tagValue = input.get(tag)
+    if (tagValue) {
+      return ['-metadata', `${tag}=${tagValue}`]
+    }
+    return []
   }
 }
