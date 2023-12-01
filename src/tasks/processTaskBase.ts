@@ -21,7 +21,10 @@ export default class NodeProcessTaskBase extends TaskBase {
       ;({ execa } = mod)
     }
     const { stdout, stderr } = await execa(command, args)
+    this.logger.verbose('stdout:')
+    this.logger.verbose(stdout.toString())
+    this.logger.verbose('stderr:')
     this.logger.verbose(stderr.toString())
-    return stdout
+    return stdout.toString()
   }
 }

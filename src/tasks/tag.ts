@@ -48,7 +48,7 @@ export default class Mp3TagTask extends MediaTaskBase {
     result = result.concat(this.addMetaField(input, 'genre'))
     result = result.concat(this.addMetaField(input, 'track'))
     result = result.concat(this.addMetaField(input, 'date'))
-
+    result = result.concat(['-codec', 'copy'])
     return result
   }
 
