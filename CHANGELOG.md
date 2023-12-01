@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/mloetkemann/prostep-js-media-task/compare/v1.2.0...v1.3.0) (2023-12-01)
+
+
+### Features
+
+* add duration ([54cee05](https://github.com/mloetkemann/prostep-js-media-task/commit/54cee0577092b873eab43be573b7bf3cd83a4f6b))
+
 # [1.2.0](https://github.com/mloetkemann/prostep-js-media-task/compare/v1.1.0...v1.2.0) (2023-11-25)
 
 
