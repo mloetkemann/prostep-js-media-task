@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/mloetkemann/prostep-js-media-task/compare/v1.3.0...v1.4.0) (2023-12-02)
+
+
+### Features
+
+* add output stream reader ([#6](https://github.com/mloetkemann/prostep-js-media-task/issues/6)) ([3395ecb](https://github.com/mloetkemann/prostep-js-media-task/commit/3395ecb3111333f4d012e061919b208950b4d804))
+
 # [1.3.0](https://github.com/mloetkemann/prostep-js-media-task/compare/v1.2.0...v1.3.0) (2023-12-01)
 
 
