@@ -2,6 +2,21 @@ node_modules/
 karma.conf.js
 spec/
 
+.github/
+.husky/
+.vscode/
+
+.eslintignore
+.eslintrc.cjs
+eslint.config.js
+
+.gitignore
+.mocharc.json
+
+.prettierrc
+
+
+
 # ignore src
 
 src/**/*

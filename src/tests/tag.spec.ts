@@ -1,12 +1,13 @@
 import { assert } from 'chai'
-import ScaleAudioTask from '../tasks/scaleAudio'
+import ScaleAudioTask from '../tasks/scaleAudio.js'
 import { TaskBase } from 'prostep-js'
-import { join } from 'path'
+import { join, dirname } from 'path'
+import { fileURLToPath } from 'url'
 
 describe('Process Runtime Tests', () => {
   const taskConfig = {
     name: 'tag',
-    path: './src/tasks/tag',
+    path: './src/tasks/tag.js',
   }
 
   it('Mp3 Tag file', async () => {
@@ -18,17 +19,18 @@ describe('Process Runtime Tests', () => {
     }
 
     const task = await TaskBase.getInstance(step, taskConfig)
+    const currentDirname = dirname(fileURLToPath(import.meta.url))
     const stepContext = {
       input: new Map<string, unknown>([
-        ['input', join(__dirname, 'tagExample.mp3')],
+        ['input', join(currentDirname, 'tagExample.mp3')],
         ['title', 'TEST TEST TEST'],
         ['album', 'TEST ALBUM'],
         ['album_artist', 'TEST ALBUM ARTIST'],
         ['artist', 'TEST ARTIST'],
-        ['output', join(__dirname, 'tagExampleResult.mp3')],
+        ['output', join(currentDirname, 'tagExampleResult.mp3')],
       ]),
       result: new Map<string, unknown>(),
     }
-    //await task.run(stepContext)
+    await task.run(stepContext)
   })
 })

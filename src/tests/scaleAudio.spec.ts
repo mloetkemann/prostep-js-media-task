@@ -1,12 +1,11 @@
-import { assert } from 'chai'
-import ScaleAudioTask from '../tasks/scaleAudio'
 import { TaskBase } from 'prostep-js'
-import { join } from 'path'
+import { join, dirname } from 'path'
+import { fileURLToPath } from 'url'
 
 describe('Process Runtime Tests', () => {
   const taskConfig = {
     name: 'scaleAudio',
-    path: './src/tasks/scaleAudio',
+    path: './src/tasks/scaleAudio.js',
   }
 
   it('Convert audio file', async () => {
@@ -18,14 +17,15 @@ describe('Process Runtime Tests', () => {
     }
 
     const task = await TaskBase.getInstance(step, taskConfig)
+    const currentDirname = dirname(fileURLToPath(import.meta.url))
     const stepContext = {
       input: new Map<string, unknown>([
-        ['input', join(__dirname, 'example.ogg')],
+        ['input', join(currentDirname, 'example.ogg')],
         ['quality', 'Low'],
-        ['output', join(__dirname, 'example.mp3')],
+        ['output', join(currentDirname, 'example.mp3')],
       ]),
       result: new Map<string, unknown>(),
     }
-    //await task.run(stepContext)
+    await task.run(stepContext)
   })
 })

@@ -105,3 +105,4 @@ dist
 
 src/tests/example.mp3
 src/tests/tagExampleResult.mp3
+.DS_Store

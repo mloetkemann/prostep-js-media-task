@@ -1,7 +1,7 @@
 import { InputMetadata } from 'prostep-js'
-import MediaTaskBase from './ffmpegTask'
+import MediaTaskBase from './ffmpegTask.js'
 import { parseToString } from 'alpha8-lib'
-import { ExecutableRuntimeContext } from 'prostep-js/dist/lib/base'
+import { ExecutableRuntimeContext } from 'prostep-js/dist/lib/base.js'
 import { Step, TaskConfig } from 'prostep-js'
 
 export default class Mp3TagTask extends MediaTaskBase {
@@ -19,8 +19,9 @@ export default class Mp3TagTask extends MediaTaskBase {
     this.inputFile = parseToString(context.input.get('input'))
     this.outputFile = parseToString(context.input.get('output'))
     const ffmpegArguments = this.mapArguments(context)
-    const result = await this.runFFMPEGNode(ffmpegArguments)
+    const result = await this.runFFMPEGNode(ffmpegArguments, context)
     const resultAsNumber = parseFloat(result) * 1000
+    this.logger.info(`Determined duration=${resultAsNumber}`)
 
     context.result.set('result', resultAsNumber)
   }

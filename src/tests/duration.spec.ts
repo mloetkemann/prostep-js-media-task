@@ -1,12 +1,13 @@
 import { assert } from 'chai'
-import ScaleAudioTask from '../tasks/scaleAudio'
+import ScaleAudioTask from '../tasks/scaleAudio.js'
 import { TaskBase } from 'prostep-js'
-import { join } from 'path'
+import { join, dirname } from 'path'
+import { fileURLToPath } from 'url'
 
 describe('Process Runtime Tests', () => {
   const taskConfig = {
     name: 'duration',
-    path: './src/tasks/getDurationTask',
+    path: './src/tasks/getDurationTask.js',
   }
 
   it('Mp3 Tag file', async () => {
@@ -18,14 +19,15 @@ describe('Process Runtime Tests', () => {
     }
 
     const task = await TaskBase.getInstance(step, taskConfig)
+    const currentDirname = dirname(fileURLToPath(import.meta.url))
     const stepContext = {
       input: new Map<string, unknown>([
-        ['input', join(__dirname, 'tagExample.mp3')],
+        ['input', join(currentDirname, 'tagExample.mp3')],
       ]),
       result: new Map<string, unknown>(),
     }
-    /*await task.run(stepContext)
+    await task.run(stepContext)
     const result = stepContext.result.get('result') as number
-    assert.equal(result, 74031.02)*/
+    assert.equal(result, 74031.02)
   })
 })

@@ -1,5 +1,7 @@
-import { Step, TaskConfig } from 'prostep-js'
-import NodeProcessTaskBase, { OutputStream } from './processTaskBase'
+import { Step, TaskConfig, NodeProcessTaskBase, OutputStream } from 'prostep-js'
+import { parseToString } from 'alpha8-lib'
+import * as crypto from 'crypto'
+import { ExecutableRuntimeContext } from 'prostep-js/dist/lib/base'
 
 export default class MediaTaskBase extends NodeProcessTaskBase {
   protected inputFile: string | undefined
@@ -12,7 +14,7 @@ export default class MediaTaskBase extends NodeProcessTaskBase {
   private reTime =
     /time=(?<duration>(?<hours>\d\d):(?<minutes>\d\d):(?<seconds>\d\d).(?<milliseconds>\d\d))/i
 
-  private getDuration(groups: any): number | undefined {
+  private getDuration(groups: { [key: string]: string }): number | undefined {
     let duration
     if (groups) {
       duration =
@@ -25,14 +27,17 @@ export default class MediaTaskBase extends NodeProcessTaskBase {
 
   private outputstreamCallback(str: string) {
     let groups = str.match(this.reDuration)?.groups
-    const duration = this.getDuration(groups)
-    if (duration) this.duration = duration
-
+    if (groups) {
+      const duration = this.getDuration(groups)
+      if (duration) this.duration = duration
+    }
     groups = str.match(this.reTime)?.groups
-    const time = this.getDuration(groups)
-    if (time && this.duration) {
-      const progress = Math.round((time / this.duration) * 100)
-      this.logger.info(`Progress ${progress}%`)
+    if (groups) {
+      const time = this.getDuration(groups)
+      if (time && this.duration) {
+        const progress = Math.round((time / this.duration) * 100)
+        this.logger.info(`Progress ${progress}%`)
+      }
     }
   }
 
@@ -42,18 +47,36 @@ export default class MediaTaskBase extends NodeProcessTaskBase {
     this.stdErrStream = new OutputStream(x => this.outputstreamCallback(x))
   }
 
-  protected async runFFMPEGNode(command: string[]): Promise<string> {
+  protected async runFFMPEGNode(
+    command: string[],
+    context: ExecutableRuntimeContext
+  ): Promise<string> {
     const result = await this.runNodeProcess(this.file, command)
+    context.result.set('output', this.outputFile)
     this.logger.verbose(result)
     return result
   }
 
   protected mapInputArguments(input: Map<string, unknown>): string[] {
-    return ['-y', '-i', `file:${input.get('input')}`]
+    const inputArg = parseToString(input.get('input'))
+    if (inputArg) {
+      return ['-y', '-i', `file:${inputArg}`]
+    }
+    this.logger.error('Input task argument for ffmpeg task not found.')
+    throw Error('Input task argument for ffmpeg task not found.')
   }
 
   protected mapOutputArguments(input: Map<string, unknown>): string[] {
-    return [`file:${input.get('output')}`]
+    const outputArg = parseToString(input.get('output'))
+    if (outputArg) {
+      return [`file:${outputArg}`]
+    } else {
+      const instanceUUID = crypto.randomUUID()
+      this.outputFile = `${instanceUUID}.mp3`
+      return [`file:${instanceUUID}.mp3`]
+    }
+    this.logger.error('Output task argument for ffmpeg task not found.')
+    throw Error('Output task argument for ffmpeg task not found.')
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

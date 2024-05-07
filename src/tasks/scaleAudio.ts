@@ -1,7 +1,7 @@
 import { InputMetadata } from 'prostep-js'
-import MediaTaskBase from './ffmpegTask'
+import MediaTaskBase from './ffmpegTask.js'
 import { parseToString } from 'alpha8-lib'
-import { ExecutableRuntimeContext } from 'prostep-js/dist/lib/base'
+import { ExecutableRuntimeContext } from 'prostep-js/dist/lib/base.js'
 
 export default class ScaleAudioTask extends MediaTaskBase {
   getInputMetadata(): InputMetadata {
@@ -26,7 +26,7 @@ export default class ScaleAudioTask extends MediaTaskBase {
     this.inputFile = parseToString(context.input.get('input'))
     this.outputFile = parseToString(context.input.get('output'))
     const ffmpegArguments = this.mapArguments(context)
-    await this.runFFMPEGNode(ffmpegArguments)
+    await this.runFFMPEGNode(ffmpegArguments, context)
     //await this.runFFMPEGWasm(ffmpegArguments)
   }
 
