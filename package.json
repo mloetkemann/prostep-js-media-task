@@ -5,53 +5,49 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "license": "MIT",
+  "exports": {
+    ".": "./dist/index.js",
+    "./dist/tasks/scaleAudio": "./dist/tasks/scaleAudio.js",
+    "./dist/tasks/tag": "./dist/tasks/tag.js",
+    "./dist/tasks/getDurationTask": "./dist/tasks/getDurationTask.js"
+  },
+  "typesVersions": {
+    "*": {
+      "index.d.ts": [
+        "dist/index.d.ts"
+      ],
+      "scaleAudio.d.ts": [
+        "dist/tasks/scaleAudio.d.ts"
+      ]
+    }
+  },
+  "type": "module",
   "scripts": {
-    "build": "yarn run lint && tsc -p .",
+    "build": "pnpm lint && tsc -p .",
     "test": "npx mocha",
-    "lint": "eslint --ext .js,.ts .",
-    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
-    "prepare": "husky install"
+    "lint": "eslint .",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.5.1",
-    "@commitlint/config-conventional": "^17.4.4",
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/git": "^10.0.1",
+    "@eslint/js": "^9.1.1",
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.15.11",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
-    "chai": "^4.3.7",
-    "eslint": "^8.37.0",
+    "chai": "^5.1.0",
+    "eslint": "^9.1.1",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "husky": "^8.0.3",
-    "mocha": "^10.2.0",
+    "mocha": "^10.4.0",
     "prettier": "^2.8.7",
-    "semantic-release": "^22.0.8",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.3"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.7.1"
   },
   "dependencies": {
-    "alpha8-lib": "^1.4.3",
+    "alpha8-lib": "^1.4.11",
     "execa": "^8.0.1",
-    "prostep-js": "^1.5.2"
-  },
-  "release": {
-    "branches": [
-      "main"
-    ],
-    "plugins": [
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/changelog",
-      "@semantic-release/npm",
-      "@semantic-release/git"
-    ]
+    "prostep-js": "^1.5.4"
   }
 }
