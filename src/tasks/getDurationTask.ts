@@ -20,7 +20,7 @@ export default class Mp3TagTask extends MediaTaskBase {
     this.outputFile = parseToString(context.input.get('output'))
     const ffmpegArguments = this.mapArguments(context)
     const result = await this.runFFMPEGNode(ffmpegArguments, context)
-    const resultAsNumber = parseFloat(result) * 1000
+    const resultAsNumber = parseFloat(result)
     this.logger.info(`Determined duration=${resultAsNumber}`)
 
     context.result.set('result', resultAsNumber)

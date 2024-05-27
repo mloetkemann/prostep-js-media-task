@@ -1,6 +1,6 @@
 {
   "name": "prostep-js-media-task",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Media Tasks Library based on ffmpeg for prostepJS",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
